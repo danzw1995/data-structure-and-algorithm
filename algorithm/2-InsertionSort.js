@@ -32,4 +32,5 @@ const insertSort2 = (arr) => {
 let arr = [2, 3, 5, 4, 10, 1, 7]
 
 insertSort(arr)
+
 console.log(arr)
