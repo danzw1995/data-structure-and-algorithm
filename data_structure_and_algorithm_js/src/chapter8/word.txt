@@ -1,0 +1,6 @@
+word: word
+eat: eat
+work: work
+hello: hello
+you: you
+only: only

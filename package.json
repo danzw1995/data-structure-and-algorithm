@@ -1,0 +1,19 @@
+{
+  "name": "data-structure-and-algorithm",
+  "version": "1.0.0",
+  "description": "数据结构和算法",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danzw1995/data-structure-and-algorithm.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danzw1995/data-structure-and-algorithm/issues"
+  },
+  "homepage": "https://github.com/danzw1995/data-structure-and-algorithm#readme"
+}

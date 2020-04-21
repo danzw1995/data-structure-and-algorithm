@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .menu {
+      display: flex;
+      width: 600px;
+      height: 600px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin: 100px auto;
+    }
+    .menu > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* justify-content: center; */
+      flex: 1;
+    }
+    #form {
+      display: none;
+    }
+    button {
+      width: 80px;
+      height: 32px;
+
+    }
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <div class="wait">
+      <button id="fill">候诊</button>
+      <form id="form">
+          <div>姓名：<input type="text" id="name"></div>
+          <div>优先级：<input type="text" id="code"></div>
+        <button id="submit">提交</button>
+      </form>
+    </div>
+    <div class="treat">
+      <button id="treat">就诊</button>
+    </div>
+    <div class="treat-list">
+      <p>就诊列表</p>
+      <ul id="list"></ul>
+    </div>
+  </div>
+  <script src="./PriorityQueue.js"></script>
+  <script>
+    class Patient {
+      constructor (name, code) {
+        this.name = name;
+        this.code = code;
+      }
+    }
+    let queue = new PriorityQueue();
+    let dom = {
+      form: document.getElementById('form'),
+      fill: document.getElementById('fill'),
+      list: document.getElementById('list'),
+      treat: document.getElementById('form'),
+      name: document.getElementById('name'),
+      code: document.getElementById('code'),
+      submit: document.getElementById('submit')
+    };
+    let timer = null;
+    dom.fill.addEventListener('click', function (e) {
+      dom.form.style.display = 'block';
+    }, false);
+
+    dom.submit.addEventListener('click', function (e) {
+      queue.enqueue(new Patient(dom.name.value, dom.code.value));
+      renderList();
+      if (!timer) {
+        treat();
+      }
+      dom.name.value = '';
+      dom.code.value = '';
+      dom.form.style.display = 'none';
+      e.returnValue = false;
+    }, false);
+
+    function treat () {
+      timer = setTimeout(() => {
+        let seen;
+        if (queue.length()) {
+          seen = queue.dequeue()[0];
+          console.log('Patient being treated: ' + seen.name);
+          renderList();
+          treat();
+        } else {
+          timer = null;
+          dom.list.innerHTML = '';
+        }
+      }, 10000)
+      
+    }
+
+    function renderList () {
+      let html = '';
+      for (let i = 0; i < queue.dataStore.length; i ++) {
+        html += `<li>name: ${queue.dataStore[i].name}, code: ${queue.dataStore[i].code}</li>`
+      }
+      dom.list.innerHTML = html;
+    }
+  </script>
+</body>
+
+</html>
